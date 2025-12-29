@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 
 # --- CONFIGURATION ---
+load_dotenv()
 HA_URL = os.getenv("HA_URL")
 HA_TOKEN = os.getenv("HA_TOKEN")
 
@@ -45,7 +46,8 @@ def get_relative_time(start_str):
         if hours > 0:
             return f"In {hours}h {minutes}m"
         return f"In {minutes}m"
-    except:
+    except Exception as e:
+        print(e)
         return "Time Error"
 
 def draw_page_1(draw, inky):
@@ -103,7 +105,7 @@ def draw_page_2(draw, inky):
     message = attrs.get('message', 'No Meetings')
     is_all_day = attrs.get('all_day', False)
     start_time_raw = attrs.get('start_time', '')
-    
+
     # Fonts
     font_tiny = ImageFont.truetype(FONT_MAIN, 11)    # For Label
     font_msg = ImageFont.truetype(FONT_MAIN, 15)     # Slightly under max to ensure fit
